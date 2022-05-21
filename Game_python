@@ -95,6 +95,3 @@ while continuar:
   time.sleep(.07)
 
 win.close()
-
-
-test
