@@ -46,7 +46,9 @@ start = True
 continuar = True
 
 while continuar:
-    # Fisica do jogo
+# Fisica do jogo
+
+    # Aleatoriza a velocidade e direcao da bola no primeiro frame do jogo
     if start:
         passo = random.randrange(1, 10)
         if random.random() < 0.5:
@@ -55,15 +57,47 @@ while continuar:
 
     if (col + raio + passo) > 800:
         passo = -passo
+        if passo >= 0:
+            levelDistance = levelDistance * 2
+            passo += 5
+        if passo <= 0:
+            levelDistance = levelDistance * 2
+            passo -= 5
 
     if (col - raio + passo) < 0:
         passo = -passo
+        if passo >= 0:
+            levelDistance = levelDistance * 2
+            passo += 5
+        if passo <= 0:
+            levelDistance = levelDistance * 2
+            passo -= 5
 
     if lin < 65:
         velocidade = -velocidade
 
-    if lin == 515 and col > colIni and col < (colIni + tamanho):
+        # Aumenta a dificuldade ao passar certa marca de pontos
+        if pts >= levelDistance:
+            #Incrementa a velocidade seja ela positiva ou negativa
+            if velocidade >= 0:
+                levelDistance = levelDistance * 2
+                velocidade += 5
+            if velocidade <= 0:
+                levelDistance = levelDistance * 2
+                velocidade -= 5
+
+    if lin >= 515 and col > colIni and col < (colIni + tamanho):
         velocidade = -velocidade
+
+        # Aumenta a dificuldade ao passar certa marca de pontos
+        if pts >= levelDistance:
+            # Incrementa a velocidade seja ela positiva ou negativa
+            if velocidade >= 0:
+                levelDistance = levelDistance * 2
+                velocidade += 5
+            if velocidade <= 0:
+                levelDistance = levelDistance * 2
+                velocidade -= 5
 
     # Nova posição do círculo
     circulo.undraw()
@@ -102,16 +136,11 @@ while continuar:
         barra.setFill(color_rgb(100, 10, 10))
         barra.setWidth(10)
         barra.draw(win)
-        
-    #Aumenta a dificuldade ao passar certa marca de pontos
-    if pts == levelDistance:
-        levelDistance = levelDistance * 2
-        Clock = Clock/2
 
-    #atualiza os pontos a cada game-tick(clock)
+    # atualiza os pontos a cada game-tick(clock)
     if lin <= 540:
         pontos.undraw()
-        pts += 10
+        pts += 5
         pontos = Text(Point(400, 575), "Pontos: " + str(pts))
         pontos.draw(win)
 
