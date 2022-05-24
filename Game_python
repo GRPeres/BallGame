@@ -24,7 +24,7 @@ circulo.setFill(color_rgb(10, 10, 100))
 circulo.draw(win)
 
 # Gamescore UI
-pts = -10
+pts = 0
 pontos = Text(Point(400, 575), "Pontos: " + str(pts))
 pontos.setSize(14)
 pontos.draw(win)
@@ -38,8 +38,7 @@ barra.setWidth(10)
 barra.draw(win)
 
 # Variaveis no Startup
-levelSizeINC = 10
-levelDistance = 100
+levelDistance = 2
 Clock = .07  # Tempo entre uma atualizacao e outra do jogo
 velocidade = 5
 start = True
@@ -54,31 +53,38 @@ while continuar:
         if random.random() < 0.5:
             passo = -passo
         start = False
-
+    #Reconhece quando a Bola bate na direita da pagina
     if (col + raio + passo) > 800:
         passo = -passo
-        if passo >= 0:
-            levelDistance = levelDistance * 2
-            passo += 5
-        if passo <= 0:
-            levelDistance = levelDistance * 2
-            passo -= 5
+        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa o passo seja ele positivo ou negativo
+        if pts >= levelDistance:
 
+             if passo >= 0:
+                 levelDistance = levelDistance * 2
+                 passo += 5
+             if passo <= 0:
+                levelDistance = levelDistance * 2
+                passo -= 5
+
+    #Reconhece quando a Bola bate na esquerda da pagina
     if (col - raio + passo) < 0:
         passo = -passo
-        if passo >= 0:
-            levelDistance = levelDistance * 2
-            passo += 5
-        if passo <= 0:
-            levelDistance = levelDistance * 2
-            passo -= 5
+        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa o passo seja ele positivo ou negativo
+        if pts >= levelDistance:
+            if passo >= 0:
+                levelDistance = levelDistance * 2
+                passo += 5
+            if passo <= 0:
+                levelDistance = levelDistance * 2
+                passo -= 5
 
+    #Reconhece quando a Bola bate no topo da pagina
     if lin < 65:
         velocidade = -velocidade
 
-        # Aumenta a dificuldade ao passar certa marca de pontos
+        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa a velocidade seja ela positiva ou negativa
         if pts >= levelDistance:
-            #Incrementa a velocidade seja ela positiva ou negativa
+
             if velocidade >= 0:
                 levelDistance = levelDistance * 2
                 velocidade += 5
@@ -86,12 +92,18 @@ while continuar:
                 levelDistance = levelDistance * 2
                 velocidade -= 5
 
+    #Reconhece quando a Bola bate na barra (Player)
     if lin >= 515 and col > colIni and col < (colIni + tamanho):
         velocidade = -velocidade
 
-        # Aumenta a dificuldade ao passar certa marca de pontos
+        #Atualiza os pontos a cada toque da bola na barra,
+        pontos.undraw()
+        pts += 1
+        pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+        pontos.draw(win)
+
+        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa a velocidade seja ela positiva ou negativa
         if pts >= levelDistance:
-            # Incrementa a velocidade seja ela positiva ou negativa
             if velocidade >= 0:
                 levelDistance = levelDistance * 2
                 velocidade += 5
@@ -136,13 +148,6 @@ while continuar:
         barra.setFill(color_rgb(100, 10, 10))
         barra.setWidth(10)
         barra.draw(win)
-
-    # atualiza os pontos a cada game-tick(clock)
-    if lin <= 540:
-        pontos.undraw()
-        pts += 5
-        pontos = Text(Point(400, 575), "Pontos: " + str(pts))
-        pontos.draw(win)
 
     # Esse valor faz referência ao game-tick, ou seja, de quanto em quanto tempo o jogo atualiza
     time.sleep(Clock)
