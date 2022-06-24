@@ -17,7 +17,7 @@ linhaInferior.draw(win)
 
 # Ball Design
 col = 390
-lin = 80
+lin = 300
 raio = 15
 circulo = Circle(Point(col, lin), raio)
 circulo.setFill(color_rgb(10, 10, 100))
@@ -38,6 +38,14 @@ barra.setWidth(10)
 barra.draw(win)
 
 # Variaveis no Startup
+
+xbrick = 5
+ybrick = 60
+bricks = {}
+scopexTop_Right = []
+scopeyTop_Right = []
+scopexBottom_Left = []
+scopeyBottom_Left = []
 levelDistance = 2
 Clock = .07  # Tempo entre uma atualizacao e outra do jogo
 velocidade = 5
@@ -49,10 +57,34 @@ while continuar:
 
     # Aleatoriza a velocidade e direcao da bola no primeiro frame do jogo
     if start:
+        for o in range(0, 200, 30):
+            for i in range(0, 800, 50):
+                index = ((o/ 30 * 16).__int__() + (i / 50).__int__()).__str__()
+                bricks[index] = Rectangle(Point(xbrick + i, ybrick + o), Point(xbrick + 40 + i, ybrick + 20 + o))
+                bricks[index].setFill("black")
+                bricks[index].draw(win)
+                scopexTop_Right.append(xbrick + i)
+                scopeyTop_Right.append(ybrick + o)
+                scopexBottom_Left.append(xbrick + 40 + i)
+                scopeyBottom_Left.append(ybrick + 20 + o)
+                print(o)
+                print(bricks)
+
         passo = random.randrange(1, 10)
         if random.random() < 0.5:
             passo = -passo
         start = False
+
+    #Reconhece quando a Bola bate nos tijolinhos da pagina
+    for q in range(1,111):
+        if col >= scopexTop_Right[q] - 5 and lin >= scopeyTop_Right[q] - 5 and col <= scopexBottom_Left[q] + 5 and lin <= scopeyBottom_Left[q] + 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Right[q] = 0
+            scopexTop_Right[q] = 0
+            scopeyBottom_Left[q] = 0
+            scopexBottom_Left[q] = 0
+
+            velocidade = -velocidade
     #Reconhece quando a Bola bate na direita da pagina
     if (col + raio + passo) > 800:
         passo = -passo
@@ -154,3 +186,4 @@ while continuar:
 
 # Fechar a janela
 win.close()
+
