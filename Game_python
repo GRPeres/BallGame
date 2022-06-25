@@ -200,10 +200,61 @@ while continuar:
         t.setSize(22)
         t.setFill("red")
         t.draw(go)
-        pt = Text(Point(390, 200), pontos.getText())
-        pt.setSize(22)
-        pt.setFill("pink")
-        pt.draw(go)
+ 
+        #ScoreBoard
+        for i in range(0, vzs):
+
+            jog = [0, 0, 0, 0]
+
+            if vzs == 1:
+                jog[0] = pts
+            if vzs == 2:
+                jog[1] = pts
+            if vzs == 3:
+                jog[2] = pts
+            if vzs == 4:
+                jog[3] = pts
+            jog_ord = sorted(jog)
+
+
+
+
+        primeiro = Rectangle(Point(220, 600), Point(350, 0))
+        primeiro.setFill("white")
+        primeiro.setOutline("black")
+        primeiro.draw(go)
+        pont1 = Text(Point(300, 50), jog_ord[0])
+        pont1.setSize(22)
+        pont1.setFill("green")
+        pont1.draw(go)
+
+        segundo = Rectangle(Point(170, 600), Point(400, 150))
+        segundo.setFill("gray")
+        segundo.setOutline("black")
+        segundo.draw(go)
+        pont2 = Text(Point(300, 200), jog_ord[1])
+        pont2.setSize(22)
+        pont2.setFill("purple")
+        pont2.draw(go)
+
+        terceiro = Rectangle(Point(150, 600), Point(420, 300))
+        terceiro.setFill("white")
+        terceiro.setOutline("black")
+        terceiro.draw(go)
+        pont3 = Text(Point(300, 350), jog_ord[2])
+        pont3.setSize(22)
+        pont3.setFill("gray")
+        pont3.draw(go)
+
+        quarto = Rectangle(Point(100, 600), Point(470, 450))
+        quarto.setFill("gray")
+        quarto.setOutline("black")
+        quarto.draw(go)
+        pont4 = Text(Point(300, 500), jog_ord[3])
+        pont4.setSize(22)
+        pont4.setFill("red")
+        pont4.draw(go)
+
         go.getMouse()
         go.close()
         raise SystemExit
