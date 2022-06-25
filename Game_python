@@ -38,9 +38,10 @@ barra.setWidth(10)
 barra.draw(win)
 
 # Variaveis no Startup
-
-difficulty = 7
-barramento = 20
+level = 1
+broken = 0
+difficulty = 9 - level
+barramento = 10
 xbrick = 5
 ybrick = 60
 bricks = {}
@@ -48,15 +49,64 @@ scopexTop_Right = []
 scopeyTop_Right = []
 scopexBottom_Left = []
 scopeyBottom_Left = []
-levelDistance = 2
 Clock = .07  # Tempo entre uma atualizacao e outra do jogo
-velocidade = 5 # velocidade da bola
+velocidade = 10  # velocidade da bola
 start = True
 continuar = True
 
 while continuar:
-# Fisica do jogo
+    # Fisica do jogo
 
+    # Aleatoriza a velocidade e direcao da bola no primeiro frame do jogo e cria os tijolinhos do lvl
+    if start:
+        for o in range(0, 200, 30):
+            NoBlock = random.randrange(difficulty - 3, difficulty)
+            for i in range(0, 800, 50):
+                if NoBlock >= (i / 50) or NoBlock >= 15 - (i / 50):
+                    index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
+                    bricks[index] = Rectangle(Point(0, 0), Point(0, 0))
+                    bricks[index].draw(win)
+                    scopexTop_Right.append(0)
+                    scopeyTop_Right.append(0)
+                    scopexBottom_Left.append(0)
+                    scopeyBottom_Left.append(0)
+                    broken += 1
+                    print(broken)
+                else:
+                    index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
+                    bricks[index] = Rectangle(Point(xbrick + i, ybrick + o), Point(xbrick + 45 + i, ybrick + 25 + o))
+                    vermelho = random.randrange(0, 256)
+                    verde = random.randrange(0, 256)
+                    azul = random.randrange(0, 256)
+                    bricks[index].setFill(color_rgb(vermelho, verde, azul))
+                    bricks[index].draw(win)
+                    scopexTop_Right.append(xbrick + i)
+                    scopeyTop_Right.append(ybrick + o)
+                    scopexBottom_Left.append(xbrick + 50 + i)
+                    scopeyBottom_Left.append(ybrick + 30 + o)
+        passada = random.randrange(1, 10)
+
+        circulo.undraw()
+        col = 390
+        lin = 300
+        raio = 15
+        circulo = Circle(Point(col, lin), raio)
+        circulo.setFill(color_rgb(10, 10, 100))
+        circulo.draw(win)
+
+        barra.undraw()
+        colIni = 340
+        tamanho = 100
+        barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
+        barra.setFill(color_rgb(100, 10, 10))
+        barra.setWidth(10)
+        barra.draw(win)
+
+        if random.random() < 0.5:
+            passada = -passada
+        start = False
+
+    # Movimento da barra
     if (colIni + 20) <= 701 and (colIni - 20) >= -1:
         colIni = colIni + barramento
         barra.undraw()
@@ -73,106 +123,48 @@ while continuar:
         while (colIni - 20) <= -1:
             colIni = colIni + 20
 
-    # Aleatoriza a velocidade e direcao da bola no primeiro frame do jogo
-    if start:
-        for o in range(0, 200, 30):
-            NoBlock = random.randrange(difficulty - 3 ,difficulty)
-            for i in range(0, 800, 50):
-                if NoBlock >= (i / 50) or NoBlock >= 15 - (i/50):
-                    index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
-                    bricks[index] = Rectangle(Point(0,0), Point(0,0))
-                    bricks[index].draw(win)
-                    scopexTop_Right.append(0)
-                    scopeyTop_Right.append(0)
-                    scopexBottom_Left.append(0)
-                    scopeyBottom_Left.append(0)
-                else:
-                    index = ((o/ 30 * 16).__int__() + (i / 50).__int__()).__str__()
-                    bricks[index] = Rectangle(Point(xbrick + i, ybrick + o), Point(xbrick + 45 + i, ybrick + 25 + o))
-                    vermelho = random.randrange(0, 256)
-                    verde = random.randrange(0, 256)
-                    azul = random.randrange(0, 256)
-                    bricks[index].setFill(color_rgb(vermelho, verde, azul))
-                    bricks[index].draw(win)
-                    scopexTop_Right.append(xbrick + i)
-                    scopeyTop_Right.append(ybrick + o)
-                    scopexBottom_Left.append(xbrick + 50 + i)
-                    scopeyBottom_Left.append(ybrick + 30 + o)
-        passada = random.randrange(1, 10)
-        if random.random() < 0.5:
-            passada = -passada
-        start = False
-
-    #Reconhece quando a Bola bate nos tijolinhos da pagina
-    for q in range(1,112):
-        if col >= scopexTop_Right[q] and lin >= scopeyTop_Right[q] and col <= scopexBottom_Left[q]and lin <= scopeyBottom_Left[q]:
+    # Reconhece quando a Bola bate nos tijolinhos da pagina
+    for q in range(1, 112):
+        if col >= scopexTop_Right[q] and lin >= scopeyTop_Right[q] and col <= scopexBottom_Left[q] and lin <= \
+                scopeyBottom_Left[q]:
             bricks[q.__str__()].undraw()
             scopeyTop_Right[q] = 0
             scopexTop_Right[q] = 0
             scopeyBottom_Left[q] = 0
             scopexBottom_Left[q] = 0
+            broken += 1
+            print(broken)
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.draw(win)
 
             velocidade = -velocidade
-    #Reconhece quando a Bola bate na direita da pagina
+    # Reconhece quando a Bola bate na direita da pagina
     if (col + raio + passada) > 800:
         passada = -passada
-        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa o passo seja ele positivo ou negativo
-        if pts >= levelDistance:
 
-             if passada >= 0:
-                 levelDistance = levelDistance * 2
-                 passada += 5
-             if passada <= 0:
-                levelDistance = levelDistance * 2
-                passada -= 5
+    # Passa pro proximo level
+    if broken >= 112:
+        broken = 0
+        velocidade = velocidade * 1.2
+        barramento = barramento * 1.2
+        start = True
 
-    #Reconhece quando a Bola bate na esquerda da pagina
+    # Reconhece quando a Bola bate na esquerda da pagina
     if (col - raio + passada) < 0:
         passada = -passada
-        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa o passo seja ele positivo ou negativo
-        if pts >= levelDistance:
-            if passada >= 0:
-                levelDistance = levelDistance * 2
-                passada += 5
-            if passada <= 0:
-                levelDistance = levelDistance * 2
-                passada -= 5
 
-    #Reconhece quando a Bola bate no topo da pagina
+    # Reconhece quando a Bola bate no topo da pagina
     if lin < 65:
         velocidade = -velocidade
 
-        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa a velocidade seja ela positiva ou negativa
-        if pts >= levelDistance:
-
-            if velocidade >= 0:
-                levelDistance = levelDistance * 2
-                velocidade += 5
-            if velocidade <= 0:
-                levelDistance = levelDistance * 2
-                velocidade -= 5
-
-    #Reconhece quando a Bola bate na barra (Player)
-    if lin >= 515 and col > colIni and col < (colIni + tamanho) and lin <= 516:
+    # Reconhece quando a Bola bate na barra (Player)
+    if lin >= 515 and col > colIni and col < (colIni + tamanho):
         velocidade = -velocidade
 
-        #Atualiza os pontos a cada toque da bola na barra,
-        pontos.undraw()
-        pts += 1
-        pontos = Text(Point(400, 575), "Pontos: " + str(pts))
-        pontos.draw(win)
-
-        #Aumenta a dificuldade ao passar certa marca de pontos e incrementa a velocidade seja ela positiva ou negativa
-        if pts >= levelDistance:
-            if velocidade >= 0:
-                levelDistance = levelDistance * 2
-                velocidade += 5
-            if velocidade <= 0:
-                levelDistance = levelDistance * 2
-                velocidade -= 5
-                
-        
-    #Criar tela de Game Over
+    # Criar tela de Game Over
     if lin > 550:
         win.close()
         go = GraphWin("Perdeu kkkkkkk", 800, 600)
@@ -183,14 +175,13 @@ while continuar:
         t.setSize(22)
         t.setFill("red")
         t.draw(go)
-        pt = Text(Point(390, 200), pontos.getText() )
+        pt = Text(Point(390, 200), pontos.getText())
         pt.setSize(22)
         pt.setFill("pink")
         pt.draw(go)
         go.getMouse()
         go.close()
         raise SystemExit
-
 
     # Nova posição do círculo
     circulo.undraw()
@@ -203,6 +194,9 @@ while continuar:
     # Checa a cada tick pelo input do teclado
     tecla = win.checkKey()
 
+    #GameTestingCheats:
+    if tecla == "1":
+        broken += 1
     # Sair do joguinho
     if tecla == "Escape":
         continuar = False
