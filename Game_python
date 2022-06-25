@@ -38,10 +38,12 @@ barra.setWidth(10)
 barra.draw(win)
 
 # Variaveis no Startup
+comecar = False
+restart = False
 level = 1
 broken = 0
-difficulty = 9 - level
-barramento = 10
+difficulty = 8 - level
+barramento = 7.5
 xbrick = 5
 ybrick = 60
 bricks = {}
@@ -49,8 +51,8 @@ scopexTop_Right = []
 scopeyTop_Right = []
 scopexBottom_Left = []
 scopeyBottom_Left = []
-Clock = .07  # Tempo entre uma atualizacao e outra do jogo
-velocidade = 10  # velocidade da bola
+Clock = .035  # Tempo entre uma atualizacao e outra do jogo
+velocidade = 5  # velocidade da bola
 start = True
 continuar = True
 
@@ -59,6 +61,16 @@ while continuar:
 
     # Aleatoriza a velocidade e direcao da bola no primeiro frame do jogo e cria os tijolinhos do lvl
     if start:
+        difficulty = 8 - level
+        for o in range(0, 200, 30):
+            for i in range(0, 800, 50):
+                index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
+                if restart:
+                    bricks[index].undraw()
+                scopexTop_Right.clear()
+                scopeyTop_Right.clear()
+                scopexBottom_Left.clear()
+                scopeyBottom_Left.clear()
         for o in range(0, 200, 30):
             NoBlock = random.randrange(difficulty - 3, difficulty)
             for i in range(0, 800, 50):
@@ -101,32 +113,43 @@ while continuar:
         barra.setFill(color_rgb(100, 10, 10))
         barra.setWidth(10)
         barra.draw(win)
+        if level > 1:
+            leveltext = Text(Point(400, 350), "Level: " + str(level))
+            leveltext.draw(win)
+        waitingforstart = Text(Point(400, 375), "Press SPACE to start")
+        waitingforstart.draw(win)
 
-        if random.random() < 0.5:
-            passada = -passada
+        while comecar == False:
+            tecla = win.checkKey()
+            if tecla == "space":
+                comecar = True
+                waitingforstart.undraw()
+                if level > 1:
+                    leveltext.undraw()
+        restart = True
         start = False
 
     # Movimento da barra
-    if (colIni + 20) <= 701 and (colIni - 20) >= -1:
+    if (colIni + 5) <= 701 and (colIni - 5) >= -1:
         colIni = colIni + barramento
         barra.undraw()
         barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
         barra.setFill(color_rgb(100, 10, 10))
         barra.setWidth(10)
         barra.draw(win)
-    elif (colIni + 20) >= 701:
+    elif (colIni + 5) >= 701:
         barramento = -barramento
-        while (colIni + 20) >= 701:
-            colIni = colIni - 20
-    elif (colIni - 20) <= -1:
+        while (colIni + 5) >= 701:
+            colIni = colIni - 1
+    elif (colIni - 5) <= -1:
         barramento = -barramento
-        while (colIni - 20) <= -1:
-            colIni = colIni + 20
+        while (colIni - 5) <= -1:
+            colIni = colIni + 1
 
     # Reconhece quando a Bola bate nos tijolinhos da pagina
     for q in range(1, 112):
-        if col >= scopexTop_Right[q] and lin >= scopeyTop_Right[q] and col <= scopexBottom_Left[q] and lin <= \
-                scopeyBottom_Left[q]:
+        if col >= scopexTop_Right[q] -5 and lin >= scopeyTop_Right[q] -5 and col <= scopexBottom_Left[q]+5 and lin <= \
+                scopeyBottom_Left[q] +5:
             bricks[q.__str__()].undraw()
             scopeyTop_Right[q] = 0
             scopexTop_Right[q] = 0
@@ -147,10 +170,12 @@ while continuar:
 
     # Passa pro proximo level
     if broken >= 112:
+        level += 1
         broken = 0
         velocidade = velocidade * 1.2
         barramento = barramento * 1.2
         start = True
+        comecar = False
 
     # Reconhece quando a Bola bate na esquerda da pagina
     if (col - raio + passada) < 0:
@@ -161,7 +186,7 @@ while continuar:
         velocidade = -velocidade
 
     # Reconhece quando a Bola bate na barra (Player)
-    if lin >= 515 and col > colIni and col < (colIni + tamanho):
+    if lin >= 515 and col > colIni and col < (colIni + tamanho) and lin <= 519:
         velocidade = -velocidade
 
     # Criar tela de Game Over
