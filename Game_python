@@ -170,6 +170,27 @@ while continuar:
             if velocidade <= 0:
                 levelDistance = levelDistance * 2
                 velocidade -= 5
+                
+        
+    #Criar tela de Game Over
+    if lin > 550:
+        win.close()
+        go = GraphWin("Perdeu kkkkkkk", 800, 600)
+        quadrado = Rectangle(Point(0, 0), Point(800, 600))
+        quadrado.setFill("black")
+        quadrado.draw(go)
+        t = Text(Point(390, 80), "GAME OVER")
+        t.setSize(22)
+        t.setFill("red")
+        t.draw(go)
+        pt = Text(Point(390, 200), pontos.getText() )
+        pt.setSize(22)
+        pt.setFill("pink")
+        pt.draw(go)
+        go.getMouse()
+        go.close()
+        raise SystemExit
+
 
     # Nova posição do círculo
     circulo.undraw()
