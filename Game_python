@@ -272,24 +272,21 @@ while continuar:
         t.draw(go)
         vzs = 1
  
-        #ScoreBoard
-        jog = [0, 0, 0, 0]
-        nom = [" ", " ", " ", " "]
+       # ScoreBoard
+        for i in range(0, vzs):
+
+            jog = [0, 0, 0, 0]
+            vzs += 1
 
             if vzs == 1:
                 jog[0] = pts
-                nom[0] = NAME
             if vzs == 2:
                 jog[1] = pts
-                nom[1] = NAME
             if vzs == 3:
                 jog[2] = pts
-                nom[2] = NAME
             if vzs == 4:
                 jog[3] = pts
-                nom[3] = NAME
             jog_ord = sorted(jog)
-            vzs += 1
 
             borda = Rectangle(Point(200, 600), Point(600, 200))
             borda.setFill("gray")
@@ -309,7 +306,6 @@ while continuar:
             pont1.setSize(22)
             pont1.setFill("green")
             pont1.draw(go)
-            
 
             lin2 = Rectangle(Point(210, 400), Point(590, 410))
             lin2.setFill("gray")
@@ -319,7 +315,6 @@ while continuar:
             pont2.setSize(22)
             pont2.setFill("purple")
             pont2.draw(go)
-            
 
             lin3 = Rectangle(Point(210, 500), Point(590, 510))
             lin3.setFill("gray")
@@ -329,7 +324,6 @@ while continuar:
             pont3.setSize(22)
             pont3.setFill("gray")
             pont3.draw(go)
-            
 
             pont4 = Text(Point(400, 580), jog_ord[3])
             pont4.setSize(22)
