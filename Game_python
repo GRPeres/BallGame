@@ -200,6 +200,7 @@ while continuar:
         t.setSize(22)
         t.setFill("red")
         t.draw(go)
+        vzs = 1
  
         #ScoreBoard
         for i in range(0, vzs):
@@ -215,6 +216,7 @@ while continuar:
             if vzs == 4:
                 jog[3] = pts
             jog_ord = sorted(jog)
+            vzs += 1
 
 
 
