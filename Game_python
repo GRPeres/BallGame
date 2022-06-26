@@ -103,7 +103,6 @@ barra.draw(win)
 
 # Variaveis no Startup
 jog = ["0", "0", "0", "0"]
-vzs = 1
 reseting = False
 comecar = False
 restart = False
@@ -273,17 +272,8 @@ while continuar:
 
         # ScoreBoard
         pontibulos = str(pts)
-        if vzs == 1:
-            jog[0] = pontibulos.zfill(3) + " - " + nome.getText()
-        if vzs == 2:
-            jog[1] = pontibulos.zfill(3) + " - " + nome.getText()
-        if vzs == 3:
-            jog[2] = pontibulos.zfill(3) + " - " + nome.getText()
-        if vzs == 4:
-            jog[3] = pontibulos.zfill(3) + " - " + nome.getText()
+        jog.append(pontibulos.zfill(3) + " - " + nome.getText())
         jog.sort(reverse=True)
-        print(vzs)
-        vzs += 1
 
         borda = Rectangle(Point(200, 600), Point(600, 200))
         borda.setFill("gray")
