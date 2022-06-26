@@ -273,59 +273,69 @@ while continuar:
         vzs = 1
  
         #ScoreBoard
-        for i in range(0, vzs):
-
-            jog = [0, 0, 0, 0]
+        jog = [0, 0, 0, 0]
+        nom = [" ", " ", " ", " "]
 
             if vzs == 1:
                 jog[0] = pts
+                nom[0] = NAME
             if vzs == 2:
                 jog[1] = pts
+                nom[1] = NAME
             if vzs == 3:
                 jog[2] = pts
+                nom[2] = NAME
             if vzs == 4:
                 jog[3] = pts
+                nom[3] = NAME
             jog_ord = sorted(jog)
             vzs += 1
 
+            borda = Rectangle(Point(200, 600), Point(600, 200))
+            borda.setFill("gray")
+            borda.setOutline("black")
+            borda.draw(go)
 
+            folha = Rectangle(Point(210, 600), Point(590, 210))
+            folha.setFill("white")
+            folha.setOutline("gray")
+            folha.draw(go)
 
+            lin1 = Rectangle(Point(210, 310), Point(590, 300))
+            lin1.setFill("gray")
+            lin1.setOutline("gray")
+            lin1.draw(go)
+            pont1 = Text(Point(400, 280), jog_ord[0])
+            pont1.setSize(22)
+            pont1.setFill("green")
+            pont1.draw(go)
+            nom1 = Text(Point(400, 350), )
 
-        primeiro = Rectangle(Point(220, 600), Point(350, 0))
-        primeiro.setFill("white")
-        primeiro.setOutline("black")
-        primeiro.draw(go)
-        pont1 = Text(Point(300, 50), jog_ord[0])
-        pont1.setSize(22)
-        pont1.setFill("green")
-        pont1.draw(go)
+            lin2 = Rectangle(Point(210, 400), Point(590, 410))
+            lin2.setFill("gray")
+            lin2.setOutline("gray")
+            lin2.draw(go)
+            pont2 = Text(Point(400, 380), jog_ord[1])
+            pont2.setSize(22)
+            pont2.setFill("purple")
+            pont2.draw(go)
+            nom2
 
-        segundo = Rectangle(Point(170, 600), Point(400, 150))
-        segundo.setFill("gray")
-        segundo.setOutline("black")
-        segundo.draw(go)
-        pont2 = Text(Point(300, 200), jog_ord[1])
-        pont2.setSize(22)
-        pont2.setFill("purple")
-        pont2.draw(go)
+            lin3 = Rectangle(Point(210, 500), Point(590, 510))
+            lin3.setFill("gray")
+            lin3.setOutline("gray")
+            lin3.draw(go)
+            pont3 = Text(Point(400, 480), jog_ord[2])
+            pont3.setSize(22)
+            pont3.setFill("gray")
+            pont3.draw(go)
+            nom3
 
-        terceiro = Rectangle(Point(150, 600), Point(420, 300))
-        terceiro.setFill("white")
-        terceiro.setOutline("black")
-        terceiro.draw(go)
-        pont3 = Text(Point(300, 350), jog_ord[2])
-        pont3.setSize(22)
-        pont3.setFill("gray")
-        pont3.draw(go)
-
-        quarto = Rectangle(Point(100, 600), Point(470, 450))
-        quarto.setFill("gray")
-        quarto.setOutline("black")
-        quarto.draw(go)
-        pont4 = Text(Point(300, 500), jog_ord[3])
-        pont4.setSize(22)
-        pont4.setFill("red")
-        pont4.draw(go)
+            pont4 = Text(Point(400, 580), jog_ord[3])
+            pont4.setSize(22)
+            pont4.setFill("red")
+            pont4.draw(go)
+            nom4
 
         go.getMouse()
         go.close()
