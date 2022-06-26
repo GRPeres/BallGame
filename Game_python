@@ -309,7 +309,7 @@ while continuar:
             pont1.setSize(22)
             pont1.setFill("green")
             pont1.draw(go)
-            nom1 = Text(Point(400, 350), )
+            nom1 
 
             lin2 = Rectangle(Point(210, 400), Point(590, 410))
             lin2.setFill("gray")
