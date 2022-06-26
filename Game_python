@@ -10,7 +10,6 @@ pygame.init()
 pygame.mixer.music.load("musiccc.mp3")
 pygame.mixer.music.play(-1)
 
-
 win.setBackground('orange')
 
 t0 = Text(Point(400, 125), 'IMHOTEP')
@@ -103,6 +102,7 @@ barra.setWidth(10)
 barra.draw(win)
 
 # Variaveis no Startup
+jog = ["0", "0", "0", "0"]
 vzs = 1
 reseting = False
 comecar = False
@@ -272,18 +272,16 @@ while continuar:
         t.draw(win)
 
         # ScoreBoard
-        jog = ["0","0","0","0"]
-        nom = [" ", " ", " ", " "]
-
+        pontibulos = str(pts)
         if vzs == 1:
-            jog[0] = str(pts) + " - " + nome.getText()
+            jog[0] = pontibulos.zfill(3) + " - " + nome.getText()
         if vzs == 2:
-            jog[1] = str(pts) + " - " + nome.getText()
+            jog[1] = pontibulos.zfill(3) + " - " + nome.getText()
         if vzs == 3:
-            jog[2] = str(pts) + " - " + nome.getText()
+            jog[2] = pontibulos.zfill(3) + " - " + nome.getText()
         if vzs == 4:
-            jog[3] = str(pts) + " - " + nome.getText()
-        jog.sort()
+            jog[3] = pontibulos.zfill(3) + " - " + nome.getText()
+        jog.sort(reverse=True)
         print(vzs)
         vzs += 1
 
