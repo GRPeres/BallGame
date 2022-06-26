@@ -309,7 +309,7 @@ while continuar:
             pont1.setSize(22)
             pont1.setFill("green")
             pont1.draw(go)
-            nom1 
+            
 
             lin2 = Rectangle(Point(210, 400), Point(590, 410))
             lin2.setFill("gray")
@@ -319,7 +319,7 @@ while continuar:
             pont2.setSize(22)
             pont2.setFill("purple")
             pont2.draw(go)
-            nom2
+            
 
             lin3 = Rectangle(Point(210, 500), Point(590, 510))
             lin3.setFill("gray")
@@ -329,13 +329,13 @@ while continuar:
             pont3.setSize(22)
             pont3.setFill("gray")
             pont3.draw(go)
-            nom3
+            
 
             pont4 = Text(Point(400, 580), jog_ord[3])
             pont4.setSize(22)
             pont4.setFill("red")
             pont4.draw(go)
-            nom4
+            
 
         go.getMouse()
         go.close()
