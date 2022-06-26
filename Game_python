@@ -266,7 +266,7 @@ while continuar:
         quadrado = Rectangle(Point(0, 0), Point(800, 600))
         quadrado.setFill("black")
         quadrado.draw(go)
-        t = Text(Point(390, 80), "GAME OVER")
+        t = Text(Point(400, 80), "GAME OVER")
         t.setSize(22)
         t.setFill("red")
         t.draw(go)
