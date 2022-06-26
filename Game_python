@@ -272,7 +272,7 @@ while continuar:
 
         # ScoreBoard
         pontibulos = str(pts)
-        jog.append(pontibulos.zfill(3) + " - " + nome.getText())
+        jog.append(pontibulos.zfill(3) + " - " + NAME)
         jog.sort(reverse=True)
 
         borda = Rectangle(Point(200, 600), Point(600, 200))
