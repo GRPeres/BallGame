@@ -1,8 +1,78 @@
 from graphics import *
+import pygame
 import random
 
 # Cria a janela
 win = GraphWin("Bolinha ...", 800, 600)
+# ---------------------- VINNY -------------------------------------------------
+pygame.mixer.init()
+pygame.init()
+pygame.mixer.music.load("musiccc.mp3")
+pygame.mixer.music.play(-1)
+
+
+win.setBackground('orange')
+
+t0 = Text(Point(400, 125), 'IMHOTEP')
+t0.setTextColor('dark blue')
+t0.setSize(25)
+t0.draw(win)
+
+l1 = Line(Point(0, 200), Point(800, 200))
+l1.setWidth(3)
+l1.draw(win)
+
+l2 = Line(Point(0, 400), Point(800, 400))
+l2.setWidth(3)
+l2.draw(win)
+
+
+t1 = Text(Point(100, 300), 'Digite seu nome :')
+t1.setSize(15)
+t1.draw(win)
+
+nome = Entry(Point(400, 300), 30)
+nome.setFill('white')
+nome.setTextColor('blue')
+nome.draw(win)
+
+
+
+botao = Rectangle(Point(350,325), Point(450, 375))
+botao.setFill('light gray')
+botao.draw(win)
+
+textBotao = Text(Point(400, 350), 'PLAY !')
+textBotao.draw(win)
+
+
+while True:
+    ponto = win.getMouse()
+    x = ponto.getX()
+    y = ponto.getY()
+    if x >= 350 and x <= 450 and y >= 325 and y <= 375:
+        break
+
+print(t1)
+print(nome.getText())
+
+NAME = nome.getText()
+
+nome.undraw()
+textBotao.undraw()
+botao.undraw()
+t1.undraw()
+l1.undraw()
+l2.undraw()
+t0.undraw()
+
+name = Text(Point(100, 575), "Nome: " + NAME)
+name.setSize(14)
+name.draw(win)
+
+
+#-------------------------------------------------------------------------
+win.setBackground('dark green')
 
 # Design
 linhaSuperior = Line(Point(0, 40), Point(800, 40))
