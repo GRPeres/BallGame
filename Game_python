@@ -7,8 +7,6 @@ win = GraphWin("Bolinha ...", 800, 600)
 # ---------------------- VINNY -------------------------------------------------
 pygame.mixer.init()
 pygame.init()
-pygame.mixer.music.load("musiccc.mp3")
-pygame.mixer.music.play(-1)
 
 win.setBackground('orange')
 
@@ -66,17 +64,17 @@ name.setSize(14)
 name.draw(win)
 
 # -------------------------------------------------------------------------
-win.setBackground('dark green')
+win.setBackground(color_rgb(174,164,124))
 
 # Design
 linhaSuperior = Line(Point(0, 40), Point(800, 40))
 linhaSuperior.setWidth(10)
-linhaSuperior.setFill(color_rgb(10, 100, 10))
+linhaSuperior.setFill(color_rgb(107,100,75))
 linhaSuperior.draw(win)
 # Design
 linhaInferior = Line(Point(0, 550), Point(800, 550))
 linhaInferior.setWidth(3)
-linhaInferior.setFill(color_rgb(10, 100, 10))
+linhaInferior.setFill(color_rgb(107,100,75))
 linhaInferior.draw(win)
 
 # Ball Design
@@ -84,7 +82,7 @@ col = 390
 lin = 300
 raio = 15
 circulo = Circle(Point(col, lin), raio)
-circulo.setFill(color_rgb(10, 10, 100))
+circulo.setFill(color_rgb(100, 100, 100))
 circulo.draw(win)
 
 # Gamescore UI
@@ -97,7 +95,7 @@ pontos.draw(win)
 colIni = 340
 tamanho = 100
 barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
-barra.setFill(color_rgb(100, 10, 10))
+barra.setFill(color_rgb(50, 49, 45))
 barra.setWidth(10)
 barra.draw(win)
 
@@ -152,9 +150,9 @@ while continuar:
                 else:
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                     bricks[index] = Rectangle(Point(xbrick + i, ybrick + o), Point(xbrick + 45 + i, ybrick + 25 + o))
-                    vermelho = random.randrange(0, 256)
-                    verde = random.randrange(0, 256)
-                    azul = random.randrange(0, 256)
+                    vermelho = random.randrange(112, 154)
+                    verde = random.randrange(92, 123)
+                    azul = random.randrange(3, 9)
                     bricks[index].setFill(color_rgb(vermelho, verde, azul))
                     bricks[index].draw(win)
                     scopexTop_Right.append(xbrick + i)
@@ -168,14 +166,14 @@ while continuar:
         lin = 300
         raio = 15
         circulo = Circle(Point(col, lin), raio)
-        circulo.setFill(color_rgb(10, 10, 100))
+        circulo.setFill(color_rgb(100, 100, 100))
         circulo.draw(win)
 
         barra.undraw()
         colIni = 340
         tamanho = 100
         barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
-        barra.setFill(color_rgb(100, 10, 10))
+        barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
         if level > 1:
@@ -199,7 +197,7 @@ while continuar:
         colIni = colIni + barramento
         barra.undraw()
         barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
-        barra.setFill(color_rgb(100, 10, 10))
+        barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
     elif (colIni + 5) >= 701 and reseting == False:
@@ -263,11 +261,11 @@ while continuar:
         pontos.undraw()
         barra.undraw()
         quadrado = Rectangle(Point(0, 0), Point(800, 600))
-        quadrado.setFill("black")
+        quadrado.setFill("Grey")
         quadrado.draw(win)
         t = Text(Point(400, 80), "GAME OVER")
         t.setSize(22)
-        t.setFill("red")
+        t.setFill(color_rgb(0, 0, 0))
         t.draw(win)
 
         # ScoreBoard
@@ -291,7 +289,7 @@ while continuar:
         lin1.draw(win)
         pont1 = Text(Point(400, 280), jog[0])
         pont1.setSize(22)
-        pont1.setFill("green")
+        pont1.setFill("yellow")
         pont1.draw(win)
         lin2 = Rectangle(Point(210, 400), Point(590, 410))
         lin2.setFill("gray")
@@ -299,7 +297,7 @@ while continuar:
         lin2.draw(win)
         pont2 = Text(Point(400, 380), jog[1])
         pont2.setSize(22)
-        pont2.setFill("purple")
+        pont2.setFill("gold")
         pont2.draw(win)
         lin3 = Rectangle(Point(210, 500), Point(590, 510))
         lin3.setFill("gray")
@@ -307,11 +305,11 @@ while continuar:
         lin3.draw(win)
         pont3 = Text(Point(400, 480), jog[2])
         pont3.setSize(22)
-        pont3.setFill("gray")
+        pont3.setFill("yellow")
         pont3.draw(win)
         pont4 = Text(Point(400, 550), jog[3])
         pont4.setSize(22)
-        pont4.setFill("red")
+        pont4.setFill("gold")
         pont4.draw(win)
         lin = 300
 
@@ -402,24 +400,24 @@ while continuar:
         name.draw(win)
 
         # -------------------------------------------------------------------------
-        win.setBackground('dark green')
+        win.setBackground(color_rgb(174,164,124))
 
         # Design
         linhaSuperior = Line(Point(0, 40), Point(800, 40))
         linhaSuperior.setWidth(10)
-        linhaSuperior.setFill(color_rgb(10, 100, 10))
+        linhaSuperior.setFill(color_rgb(107,100,75))
         linhaSuperior.draw(win)
         # Design
         linhaInferior = Line(Point(0, 550), Point(800, 550))
         linhaInferior.setWidth(3)
-        linhaInferior.setFill(color_rgb(10, 100, 10))
+        linhaInferior.setFill(color_rgb(107,100,75))
         linhaInferior.draw(win)
 
         # Ball Design
         col = 390
         raio = 15
         circulo = Circle(Point(col, lin), raio)
-        circulo.setFill(color_rgb(10, 10, 100))
+        circulo.setFill(color_rgb(100, 100, 100))
         circulo.draw(win)
 
         # Gamescore UI
@@ -432,7 +430,7 @@ while continuar:
         colIni = 340
         tamanho = 100
         barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
-        barra.setFill(color_rgb(100, 10, 10))
+        barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
 
@@ -462,7 +460,7 @@ while continuar:
         col += passada
         lin += velocidade
         circulo = Circle(Point(col, lin), 15)
-        circulo.setFill(color_rgb(10, 10, 100))
+        circulo.setFill(color_rgb(100, 100, 100))
         circulo.draw(win)
 
     # Checa a cada tick pelo input do teclado
