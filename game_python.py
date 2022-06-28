@@ -23,8 +23,8 @@ l2 = Line(Point(0, 400), Point(800, 400))
 l2.setWidth(3)
 l2.draw(win)
 
-t1 = Text(Point(100, 300), 'Digite seu nome :')
-t1.setSize(15)
+t1 = Text(Point(150, 300), 'Digite seu nome :')
+t1.setSize(18)
 t1.draw(win)
 
 nome = Entry(Point(400, 300), 30)
