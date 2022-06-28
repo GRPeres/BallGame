@@ -3,7 +3,7 @@ import pygame
 import random
 
 # Cria a janela inicial
-win = GraphWin("Bolinha ...", 800, 600)
+win = GraphWin("IMHOTEP", 800, 600)
 
 pygame.mixer.init()
 pygame.init()
