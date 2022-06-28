@@ -2,9 +2,9 @@ from graphics import *
 import pygame
 import random
 
-# Cria a janela
+# Cria a janela inicial
 win = GraphWin("Bolinha ...", 800, 600)
-# ---------------------- VINNY -------------------------------------------------
+
 pygame.mixer.init()
 pygame.init()
 
@@ -63,7 +63,7 @@ name = Text(Point(100, 575), "Nome: " + NAME)
 name.setSize(14)
 name.draw(win)
 
-# -------------------------------------------------------------------------
+# --------------------início do game--------------------------------------------
 win.setBackground(color_rgb(174,164,124))
 
 # Design
@@ -340,7 +340,7 @@ while continuar:
         lin1.undraw()
         folha.undraw()
         borda.undraw()
-        # ---------------------- VINNY -------------------------------------------------
+        # ---------------------------------------------------------------
         pygame.mixer.init()
         pygame.init()
 
@@ -399,7 +399,7 @@ while continuar:
         name.setSize(14)
         name.draw(win)
 
-        # -------------------------------------------------------------------------
+        # -----------------------------------------------------------------
         win.setBackground(color_rgb(174,164,124))
 
         # Design
