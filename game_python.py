@@ -261,11 +261,11 @@ while continuar:
         pontos.undraw()
         barra.undraw()
         quadrado = Rectangle(Point(0, 0), Point(800, 600))
-        quadrado.setFill("Grey")
+        quadrado.setFill("orange")
         quadrado.draw(win)
         t = Text(Point(400, 80), "GAME OVER")
         t.setSize(22)
-        t.setFill(color_rgb(0, 0, 0))
+        t.setFill(color_rgb(255, 0, 0))
         t.draw(win)
 
         # ScoreBoard
@@ -279,8 +279,8 @@ while continuar:
         borda.draw(win)
 
         folha = Rectangle(Point(210, 600), Point(590, 210))
-        folha.setFill("white")
-        folha.setOutline("gray")
+        folha.setFill("black")
+        folha.setOutline("yellow")
         folha.draw(win)
 
         lin1 = Rectangle(Point(210, 310), Point(590, 300))
