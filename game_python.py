@@ -111,10 +111,10 @@ barramento = 7.5
 xbrick = 5
 ybrick = 60
 bricks = {}
-scopexTop_Right = []
-scopeyTop_Right = []
-scopexBottom_Left = []
-scopeyBottom_Left = []
+scopexTop_Left = []
+scopeyTop_Left = []
+scopexBottom_Right = []
+scopeyBottom_Right = []
 Clock = .035  # Tempo entre uma atualizacao e outra do jogo
 velocidade = 5  # velocidade da bola
 start = True
@@ -131,10 +131,10 @@ while continuar:
                 index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                 if restart:
                     bricks[index].undraw()
-                scopexTop_Right.clear()
-                scopeyTop_Right.clear()
-                scopexBottom_Left.clear()
-                scopeyBottom_Left.clear()
+                scopexTop_Left.clear()
+                scopeyTop_Left.clear()
+                scopexBottom_Right.clear()
+                scopeyBottom_Right.clear()
         for o in range(0, 200, 30):
             NoBlock = random.randrange(difficulty - 3, difficulty)
             for i in range(0, 800, 50):
@@ -142,10 +142,10 @@ while continuar:
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                     bricks[index] = Rectangle(Point(0, 0), Point(0, 0))
                     bricks[index].draw(win)
-                    scopexTop_Right.append(0)
-                    scopeyTop_Right.append(0)
-                    scopexBottom_Left.append(0)
-                    scopeyBottom_Left.append(0)
+                    scopexTop_Left.append(0)
+                    scopeyTop_Left.append(0)
+                    scopexBottom_Right.append(0)
+                    scopeyBottom_Right.append(0)
                     broken += 1
                 else:
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
@@ -155,10 +155,10 @@ while continuar:
                     azul = random.randrange(3, 9)
                     bricks[index].setFill(color_rgb(vermelho, verde, azul))
                     bricks[index].draw(win)
-                    scopexTop_Right.append(xbrick + i)
-                    scopeyTop_Right.append(ybrick + o)
-                    scopexBottom_Left.append(xbrick + 50 + i)
-                    scopeyBottom_Left.append(ybrick + 30 + o)
+                    scopexTop_Left.append(xbrick + i)
+                    scopeyTop_Left.append(ybrick + o)
+                    scopexBottom_Right.append(xbrick + 50 + i)
+                    scopeyBottom_Right.append(ybrick + 30 + o)
         passada = random.randrange(1, 10)
 
         circulo.undraw()
@@ -211,22 +211,62 @@ while continuar:
 
     # Reconhece quando a Bola bate nos tijolinhos da pagina
     for q in range(1, 112):
-        if col >= scopexTop_Right[q] - 5 and lin >= scopeyTop_Right[q] - 5 and col <= scopexBottom_Left[
-            q] + 5 and lin <= \
-                scopeyBottom_Left[q] + 5:
+        if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyBottom_Right[q] + 5:
             bricks[q.__str__()].undraw()
-            scopeyTop_Right[q] = 0
-            scopexTop_Right[q] = 0
-            scopeyBottom_Left[q] = 0
-            scopexBottom_Left[q] = 0
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
             pts += 1
             pontos = Text(Point(400, 575), "Pontos: " + str(pts))
             pontos.draw(win)
-
             velocidade = -velocidade
+
+        if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyTop_Left[q] - 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
+            broken += 1
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.draw(win)
+            velocidade = -velocidade
+
+        if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexBottom_Right[q] + 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
+            broken += 1
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.draw(win)
+            passada = -passada
+
+        if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexTop_Left[q] - 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
+            broken += 1
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.draw(win)
+            passada = -passada
+
     # Reconhece quando a Bola bate na direita da pagina
     if (col + raio + passada) > 800:
         passada = -passada
@@ -324,10 +364,10 @@ while continuar:
             for i in range(0, 800, 50):
                 index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                 bricks[index].undraw()
-                scopexTop_Right.clear()
-                scopeyTop_Right.clear()
-                scopexBottom_Left.clear()
-                scopeyBottom_Left.clear()
+                scopexTop_Left.clear()
+                scopeyTop_Left.clear()
+                scopexBottom_Right.clear()
+                scopeyBottom_Right.clear()
         name.undraw()
         quadrado.undraw()
         t.undraw()
@@ -444,10 +484,10 @@ while continuar:
         xbrick = 5
         ybrick = 60
         bricks = {}
-        scopexTop_Right = []
-        scopeyTop_Right = []
-        scopexBottom_Left = []
-        scopeyBottom_Left = []
+        scopexTop_Left = []
+        scopeyTop_Left = []
+        scopexBottom_Right = []
+        scopeyBottom_Right = []
         Clock = .035  # Tempo entre uma atualizacao e outra do jogo
         velocidade = 5  # velocidade da bola
         start = True
