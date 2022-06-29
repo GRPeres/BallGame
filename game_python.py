@@ -333,6 +333,40 @@ while continuar:
             pontos.setSize(18)
             pontos.draw(win)
             passada = -passada
+            
+        if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
+            broken += 1
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
+            pontos.draw(win)
+            passada = -passada
+            velocidade = -velocidade
+
+        if lin == scopeyBottom_Right[q] + 5 and col == scopexBottom_Right[q] + 5:
+            bricks[q.__str__()].undraw()
+            scopeyTop_Left[q] = 0
+            scopexTop_Left[q] = 0
+            scopeyBottom_Right[q] = 0
+            scopexBottom_Right[q] = 0
+            broken += 1
+            # Atualiza os pontos a cada toque da bola na barra,
+            pontos.undraw()
+            pts += 1
+            pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
+            pontos.draw(win)
+            passada = -passada
+            velocidade = -velocidade
 
     # Reconhece quando a Bola bate na direita da pagina
     if (col + raio + passada) > 800:
