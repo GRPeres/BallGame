@@ -1,18 +1,72 @@
 from graphics import *
-import pygame
 import random
 
 # Cria a janela inicial
 win = GraphWin("IMHOTEP", 800, 600)
 
-pygame.mixer.init()
-pygame.init()
+#--------tela_start------------------------------------
+win.setBackground(color_rgb(0, 102, 204))
 
-win.setBackground('orange')
+
+yell = True
+for incLin in range(0, 250, 25):
+    for inc in range(0, 800, 40):
+        ret = Rectangle(Point(0 + inc, 0 + incLin ), Point(39 + inc, 24 + incLin))
+        if yell:
+            ret.setFill(color_rgb(255,128,0))
+            yell = False
+        else:
+            ret.setFill(color_rgb(255, 153, 51))
+            yell = True
+        ret.draw(win)
+    yell = not yell
+
+
+tex1 = Text(Point(400, 350), 'IMHOTEP')
+tex1.setTextColor("gold")
+tex1.setStyle("bold")
+tex1.setSize(36)
+tex1.draw(win)
+
+
+barrinha = Line(Point(300, 530), Point(500, 530))
+barrinha.setFill(color_rgb(50, 49, 45))
+barrinha.setWidth(25)
+barrinha.draw(win)
+
+
+circlin = Circle(Point(350, 500), 15)
+circlin.setFill(color_rgb(0, 0, 0))
+circlin.draw(win)
+
+text_Botao = Text(Point(400, 532), 'START !')
+text_Botao.setTextColor("red")
+text_Botao.setStyle("bold")
+text_Botao.setSize(16)
+text_Botao.draw(win)
+
+while True:
+    ponto = win.getMouse()
+    x = ponto.getX()
+    y = ponto.getY()
+    if x >= 250 and x <= 550 and y >= 500 and y <= 550:
+        break
+
+
+tex1.undraw()
+barrinha.undraw()
+circlin.undraw()
+text_Botao.undraw()
+
+#---------------tela_nome---------------------------------
+quadrad = Rectangle(Point(0, 0), Point(800, 600))
+quadrad.setFill(color_rgb(51, 153, 255))
+quadrad.draw(win)
 
 t0 = Text(Point(400, 125), 'IMHOTEP')
-t0.setTextColor('dark blue')
-t0.setSize(25)
+t0.setTextColor('orange red')
+t0.setStyle('bold')
+t0.setSize(30)
 t0.draw(win)
 
 l1 = Line(Point(0, 200), Point(800, 200))
@@ -24,19 +78,22 @@ l2.setWidth(3)
 l2.draw(win)
 
 t1 = Text(Point(150, 300), 'Digite seu nome :')
+t1.setStyle('bold')
 t1.setSize(18)
 t1.draw(win)
 
 nome = Entry(Point(400, 300), 30)
 nome.setFill('white')
-nome.setTextColor('blue')
+nome.setTextColor('black')
+nome.setStyle('bold italic')
 nome.draw(win)
 
 botao = Rectangle(Point(350, 325), Point(450, 375))
 botao.setFill('light gray')
 botao.draw(win)
 
-textBotao = Text(Point(400, 350), 'PLAY !')
+textBotao = Text(Point(401, 352), 'PLAY !')
+textBotao.setStyle('bold')
 textBotao.draw(win)
 
 while True:
@@ -60,21 +117,22 @@ l2.undraw()
 t0.undraw()
 
 name = Text(Point(100, 575), "Nome: " + NAME)
-name.setSize(14)
+name.setStyle('bold italic')
+name.setSize(16)
 name.draw(win)
 
 # --------------------início do game--------------------------------------------
-win.setBackground(color_rgb(174,164,124))
+
 
 # Design
 linhaSuperior = Line(Point(0, 40), Point(800, 40))
 linhaSuperior.setWidth(10)
-linhaSuperior.setFill(color_rgb(107,100,75))
+linhaSuperior.setFill(color_rgb(0,0,0))
 linhaSuperior.draw(win)
 # Design
 linhaInferior = Line(Point(0, 550), Point(800, 550))
 linhaInferior.setWidth(3)
-linhaInferior.setFill(color_rgb(107,100,75))
+linhaInferior.setFill(color_rgb(0,0,0))
 linhaInferior.draw(win)
 
 # Ball Design
@@ -87,8 +145,9 @@ circulo.draw(win)
 
 # Gamescore UI
 pts = 0
-pontos = Text(Point(400, 575), "Pontos: " + str(pts))
-pontos.setSize(14)
+pontos = Text(Point(395, 575), "Pontos: " + str(pts))
+pontos.setStyle('bold')
+pontos.setSize(18)
 pontos.draw(win)
 
 # Design da barra (antes do primeiro input)
@@ -150,9 +209,9 @@ while continuar:
                 else:
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                     bricks[index] = Rectangle(Point(xbrick + i, ybrick + o), Point(xbrick + 45 + i, ybrick + 25 + o))
-                    vermelho = random.randrange(112, 154)
-                    verde = random.randrange(92, 123)
-                    azul = random.randrange(3, 9)
+                    vermelho = random.randrange(245, 255)
+                    verde = random.randrange(120, 155)
+                    azul = random.randrange(0, 75)
                     bricks[index].setFill(color_rgb(vermelho, verde, azul))
                     bricks[index].draw(win)
                     scopexTop_Left.append(xbrick + i)
@@ -222,6 +281,8 @@ while continuar:
             pontos.undraw()
             pts += 1
             pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
             pontos.draw(win)
             velocidade = -velocidade
 
@@ -236,6 +297,8 @@ while continuar:
             pontos.undraw()
             pts += 1
             pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
             pontos.draw(win)
             velocidade = -velocidade
 
@@ -250,6 +313,8 @@ while continuar:
             pontos.undraw()
             pts += 1
             pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
             pontos.draw(win)
             passada = -passada
 
@@ -264,6 +329,8 @@ while continuar:
             pontos.undraw()
             pts += 1
             pontos = Text(Point(400, 575), "Pontos: " + str(pts))
+            pontos.setStyle('bold')
+            pontos.setSize(18)
             pontos.draw(win)
             passada = -passada
 
@@ -301,11 +368,12 @@ while continuar:
         pontos.undraw()
         barra.undraw()
         quadrado = Rectangle(Point(0, 0), Point(800, 600))
-        quadrado.setFill("orange")
+        quadrado.setFill("black")
         quadrado.draw(win)
-        t = Text(Point(400, 80), "GAME OVER")
+        t = Text(Point(400, 125), "GAME OVER")
         t.setSize(22)
         t.setFill(color_rgb(255, 0, 0))
+        t.setStyle('bold')
         t.draw(win)
 
         # ScoreBoard
@@ -319,8 +387,8 @@ while continuar:
         borda.draw(win)
 
         folha = Rectangle(Point(210, 600), Point(590, 210))
-        folha.setFill("black")
-        folha.setOutline("yellow")
+        folha.setFill("navy")
+        folha.setOutline("gold")
         folha.draw(win)
 
         lin1 = Rectangle(Point(210, 310), Point(590, 300))
@@ -329,7 +397,8 @@ while continuar:
         lin1.draw(win)
         pont1 = Text(Point(400, 280), jog[0])
         pont1.setSize(22)
-        pont1.setFill("yellow")
+        pont1.setFill("gold")
+        pont1.setStyle('bold')
         pont1.draw(win)
         lin2 = Rectangle(Point(210, 400), Point(590, 410))
         lin2.setFill("gray")
@@ -338,6 +407,7 @@ while continuar:
         pont2 = Text(Point(400, 380), jog[1])
         pont2.setSize(22)
         pont2.setFill("gold")
+        pont2.setStyle('bold')
         pont2.draw(win)
         lin3 = Rectangle(Point(210, 500), Point(590, 510))
         lin3.setFill("gray")
@@ -345,11 +415,13 @@ while continuar:
         lin3.draw(win)
         pont3 = Text(Point(400, 480), jog[2])
         pont3.setSize(22)
-        pont3.setFill("yellow")
+        pont3.setFill("gold")
+        pont3.setStyle('bold')
         pont3.draw(win)
         pont4 = Text(Point(400, 550), jog[3])
         pont4.setSize(22)
         pont4.setFill("gold")
+        pont4.setStyle('bold')
         pont4.draw(win)
         lin = 300
 
@@ -381,14 +453,14 @@ while continuar:
         folha.undraw()
         borda.undraw()
         # ---------------------------------------------------------------
-        pygame.mixer.init()
-        pygame.init()
+        
 
-        win.setBackground('orange')
+        win.setBackground(color_rgb(51, 153, 255))
 
         t0 = Text(Point(400, 125), 'IMHOTEP')
-        t0.setTextColor('dark blue')
-        t0.setSize(25)
+        t0.setTextColor('orange red')
+        t0.setStyle('bold')
+        t0.setSize(30)
         t0.draw(win)
 
         l1 = Line(Point(0, 200), Point(800, 200))
@@ -399,20 +471,23 @@ while continuar:
         l2.setWidth(3)
         l2.draw(win)
 
-        t1 = Text(Point(100, 300), 'Digite seu nome :')
-        t1.setSize(15)
+        t1 = Text(Point(150, 300), 'Digite seu nome :')
+        t1.setStyle('bold')
+        t1.setSize(18)
         t1.draw(win)
 
         nome = Entry(Point(400, 300), 30)
         nome.setFill('white')
-        nome.setTextColor('blue')
+        nome.setTextColor('black')
+        nome.setStyle('bold italic')
         nome.draw(win)
 
         botao = Rectangle(Point(350, 325), Point(450, 375))
         botao.setFill('light gray')
         botao.draw(win)
 
-        textBotao = Text(Point(400, 350), 'PLAY !')
+        textBotao = Text(Point(401, 352), 'PLAY !')
+        textBotao.setStyle('bold')
         textBotao.draw(win)
 
         while True:
@@ -436,21 +511,22 @@ while continuar:
         t0.undraw()
 
         name = Text(Point(100, 575), "Nome: " + NAME)
-        name.setSize(14)
+        name.setStyle('bold italic')
+        name.setSize(16)
         name.draw(win)
 
         # -----------------------------------------------------------------
-        win.setBackground(color_rgb(174,164,124))
+        win.setBackground(color_rgb(101,178,255))
 
         # Design
         linhaSuperior = Line(Point(0, 40), Point(800, 40))
         linhaSuperior.setWidth(10)
-        linhaSuperior.setFill(color_rgb(107,100,75))
+        linhaSuperior.setFill(color_rgb(0,0,0))
         linhaSuperior.draw(win)
         # Design
         linhaInferior = Line(Point(0, 550), Point(800, 550))
         linhaInferior.setWidth(3)
-        linhaInferior.setFill(color_rgb(107,100,75))
+        linhaInferior.setFill(color_rgb(0,0,0))
         linhaInferior.draw(win)
 
         # Ball Design
@@ -462,8 +538,9 @@ while continuar:
 
         # Gamescore UI
         pts = 0
-        pontos = Text(Point(400, 575), "Pontos: " + str(pts))
-        pontos.setSize(14)
+        pontos = Text(Point(395, 575), "Pontos: " + str(pts))
+        pontos.setStyle('bold')
+        pontos.setSize(18)
         pontos.draw(win)
 
         # Design da barra (antes do primeiro input)
