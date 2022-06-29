@@ -1,19 +1,36 @@
 from graphics import *
+import pygame
 import random
 
 # Cria a janela inicial
 win = GraphWin("IMHOTEP", 800, 600)
 
-#--------tela_start------------------------------------
-win.setBackground(color_rgb(0, 102, 204))
+pygame.init()
+pygame.font.init()
+pygame.mixer.init() # Start nos sons
 
+#pasta que contem os sons
+s = 'sound'
+
+#lista de Sons
+hit = pygame.mixer.Sound(os.path.join(s, 'hit.wav'))
+blockbreak = pygame.mixer.Sound(os.path.join(s, 'break.wav'))
+go = pygame.mixer.Sound(os.path.join(s, 'gameover.wav'))
+select = pygame.mixer.Sound(os.path.join(s, 'select.wav'))
+music = pygame.mixer.music.load(os.path.join(s, 'maintheme.wav'))
+
+#play background
+pygame.mixer.music.play(-1)
+
+# --------tela_start------------------------------------
+win.setBackground(color_rgb(0, 102, 204))
 
 yell = True
 for incLin in range(0, 250, 25):
     for inc in range(0, 800, 40):
-        ret = Rectangle(Point(0 + inc, 0 + incLin ), Point(39 + inc, 24 + incLin))
+        ret = Rectangle(Point(0 + inc, 0 + incLin), Point(39 + inc, 24 + incLin))
         if yell:
-            ret.setFill(color_rgb(255,128,0))
+            ret.setFill(color_rgb(255, 128, 0))
             yell = False
         else:
             ret.setFill(color_rgb(255, 153, 51))
@@ -21,19 +38,16 @@ for incLin in range(0, 250, 25):
         ret.draw(win)
     yell = not yell
 
-
 tex1 = Text(Point(400, 350), 'IMHOTEP')
 tex1.setTextColor("gold")
 tex1.setStyle("bold")
 tex1.setSize(36)
 tex1.draw(win)
 
-
 barrinha = Line(Point(300, 530), Point(500, 530))
 barrinha.setFill(color_rgb(50, 49, 45))
 barrinha.setWidth(25)
 barrinha.draw(win)
-
 
 circlin = Circle(Point(350, 500), 15)
 circlin.setFill(color_rgb(0, 0, 0))
@@ -50,15 +64,16 @@ while True:
     x = ponto.getX()
     y = ponto.getY()
     if x >= 250 and x <= 550 and y >= 500 and y <= 550:
+        pygame.mixer.Sound.play(select)
         break
-
 
 tex1.undraw()
 barrinha.undraw()
 circlin.undraw()
 text_Botao.undraw()
 
-#---------------tela_nome---------------------------------
+# ---------------tela_nome---------------------------------
+
 quadrad = Rectangle(Point(0, 0), Point(800, 600))
 quadrad.setFill(color_rgb(51, 153, 255))
 quadrad.draw(win)
@@ -101,6 +116,7 @@ while True:
     x = ponto.getX()
     y = ponto.getY()
     if x >= 350 and x <= 450 and y >= 325 and y <= 375:
+        pygame.mixer.Sound.play(select)
         break
 
 print(t1)
@@ -123,16 +139,15 @@ name.draw(win)
 
 # --------------------início do game--------------------------------------------
 
-
 # Design
 linhaSuperior = Line(Point(0, 40), Point(800, 40))
 linhaSuperior.setWidth(10)
-linhaSuperior.setFill(color_rgb(0,0,0))
+linhaSuperior.setFill(color_rgb(0, 0, 0))
 linhaSuperior.draw(win)
 # Design
 linhaInferior = Line(Point(0, 550), Point(800, 550))
 linhaInferior.setWidth(3)
-linhaInferior.setFill(color_rgb(0,0,0))
+linhaInferior.setFill(color_rgb(0, 0, 0))
 linhaInferior.draw(win)
 
 # Ball Design
@@ -244,6 +259,7 @@ while continuar:
         while comecar == False:
             tecla = win.checkKey()
             if tecla == "space":
+                pygame.mixer.Sound.play(hit)
                 comecar = True
                 waitingforstart.undraw()
                 if level > 1:
@@ -272,6 +288,7 @@ while continuar:
     for q in range(1, 112):
         if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyBottom_Right[q] + 5:
             bricks[q.__str__()].undraw()
+            pygame.mixer.Sound.play(blockbreak)
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
@@ -288,6 +305,7 @@ while continuar:
 
         if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyTop_Left[q] - 5:
             bricks[q.__str__()].undraw()
+            pygame.mixer.Sound.play(blockbreak)
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
@@ -304,6 +322,7 @@ while continuar:
 
         if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexBottom_Right[q] + 5:
             bricks[q.__str__()].undraw()
+            pygame.mixer.Sound.play(blockbreak)
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
@@ -320,6 +339,7 @@ while continuar:
 
         if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexTop_Left[q] - 5:
             bricks[q.__str__()].undraw()
+            pygame.mixer.Sound.play(blockbreak)
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
@@ -334,7 +354,7 @@ while continuar:
             pontos.draw(win)
             passada = -passada
             
-        if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
+              if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
             bricks[q.__str__()].undraw()
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
@@ -392,9 +412,11 @@ while continuar:
     # Reconhece quando a Bola bate na barra (Player)
     if lin >= 515 and col > colIni and col < (colIni + tamanho) and lin <= 519:
         velocidade = -velocidade
+        pygame.mixer.Sound.play(hit)
 
     # Criar tela de Game Over
     if lin > 550:
+        pygame.mixer.Sound.play(go)
         reseting = True
         linhaSuperior.undraw()
         linhaInferior.undraw()
@@ -466,6 +488,7 @@ while continuar:
         barra.undraw()
 
     if tecla == "space" and reseting:
+        pygame.mixer.Sound.play(hit)
         for o in range(0, 200, 30):
             for i in range(0, 800, 50):
                 index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
@@ -487,7 +510,6 @@ while continuar:
         folha.undraw()
         borda.undraw()
         # ---------------------------------------------------------------
-        
 
         win.setBackground(color_rgb(51, 153, 255))
 
@@ -550,17 +572,17 @@ while continuar:
         name.draw(win)
 
         # -----------------------------------------------------------------
-        win.setBackground(color_rgb(101,178,255))
+        win.setBackground(color_rgb(101, 178, 255))
 
         # Design
         linhaSuperior = Line(Point(0, 40), Point(800, 40))
         linhaSuperior.setWidth(10)
-        linhaSuperior.setFill(color_rgb(0,0,0))
+        linhaSuperior.setFill(color_rgb(0, 0, 0))
         linhaSuperior.draw(win)
         # Design
         linhaInferior = Line(Point(0, 550), Point(800, 550))
         linhaInferior.setWidth(3)
-        linhaInferior.setFill(color_rgb(0,0,0))
+        linhaInferior.setFill(color_rgb(0, 0, 0))
         linhaInferior.draw(win)
 
         # Ball Design
