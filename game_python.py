@@ -354,8 +354,8 @@ while continuar:
             pontos.draw(win)
             passada = -passada
             
-            if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
-             bricks[q.__str__()].undraw()
+        if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
+            bricks[q.__str__()].undraw()
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
@@ -511,8 +511,6 @@ while continuar:
         borda.undraw()
         # ---------------------------------------------------------------
 
-        win.setBackground(color_rgb(51, 153, 255))
-
         t0 = Text(Point(400, 125), 'IMHOTEP')
         t0.setTextColor('orange red')
         t0.setStyle('bold')
@@ -572,7 +570,6 @@ while continuar:
         name.draw(win)
 
         # -----------------------------------------------------------------
-        win.setBackground(color_rgb(101, 178, 255))
 
         # Design
         linhaSuperior = Line(Point(0, 40), Point(800, 40))
