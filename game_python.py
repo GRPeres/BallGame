@@ -23,7 +23,7 @@ music = pygame.mixer.music.load(os.path.join(s, 'maintheme.wav'))
 pygame.mixer.music.play(-1)
 
 # --------tela_start------------------------------------
-win.setBackground(color_rgb(255, 178, 102))
+win.setBackground(color_rgb(255, 255, 140))
 
 yell = True
 for incLin in range(0, 250, 25):
@@ -75,7 +75,7 @@ text_Botao.undraw()
 # ---------------tela_nome---------------------------------
 
 quadrad = Rectangle(Point(0, 0), Point(800, 600))
-quadrad.setFill(color_rgb(255, 178, 102))
+quadrad.setFill(color_rgb(255, 255, 140))
 quadrad.draw(win)
 
 t0 = Text(Point(400, 125), 'IMHOTEP')
