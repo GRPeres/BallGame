@@ -23,7 +23,7 @@ music = pygame.mixer.music.load(os.path.join(s, 'maintheme.wav'))
 pygame.mixer.music.play(-1)
 
 # --------tela_start------------------------------------
-win.setBackground(color_rgb(0, 102, 204))
+win.setBackground(color_rgb(255, 178, 102))
 
 yell = True
 for incLin in range(0, 250, 25):
@@ -39,7 +39,7 @@ for incLin in range(0, 250, 25):
     yell = not yell
 
 tex1 = Text(Point(400, 350), 'IMHOTEP')
-tex1.setTextColor("gold")
+tex1.setTextColor("orange red")
 tex1.setStyle("bold")
 tex1.setSize(36)
 tex1.draw(win)
@@ -75,7 +75,7 @@ text_Botao.undraw()
 # ---------------tela_nome---------------------------------
 
 quadrad = Rectangle(Point(0, 0), Point(800, 600))
-quadrad.setFill(color_rgb(51, 153, 255))
+quadrad.setFill(color_rgb(255, 178, 102))
 quadrad.draw(win)
 
 t0 = Text(Point(400, 125), 'IMHOTEP')
@@ -354,8 +354,8 @@ while continuar:
             pontos.draw(win)
             passada = -passada
             
-              if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
-            bricks[q.__str__()].undraw()
+            if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
+             bricks[q.__str__()].undraw()
             scopeyTop_Left[q] = 0
             scopexTop_Left[q] = 0
             scopeyBottom_Right[q] = 0
