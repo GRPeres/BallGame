@@ -26,9 +26,9 @@ pygame.mixer.music.play(-1)
 win.setBackground(color_rgb(255, 255, 140))
 
 yell = True
-for incLin in range(0, 250, 25):
+for inc_lin in range(0, 250, 25):
     for inc in range(0, 800, 40):
-        ret = Rectangle(Point(0 + inc, 0 + incLin), Point(39 + inc, 24 + incLin))
+        ret = Rectangle(Point(0 + inc, 0 + inc_lin), Point(39 + inc, 24 + inc_lin))
         if yell:
             ret.setFill(color_rgb(255, 128, 0))
             yell = False
@@ -53,11 +53,11 @@ circlin = Circle(Point(350, 500), 15)
 circlin.setFill(color_rgb(0, 0, 0))
 circlin.draw(win)
 
-text_Botao = Text(Point(400, 532), 'START !')
-text_Botao.setTextColor("red")
-text_Botao.setStyle("bold")
-text_Botao.setSize(16)
-text_Botao.draw(win)
+text_botao = Text(Point(400, 532), 'START !')
+text_botao.setTextColor("red")
+text_botao.setStyle("bold")
+text_botao.setSize(16)
+text_botao.draw(win)
 
 while True:
     ponto = win.getMouse()
@@ -70,7 +70,7 @@ while True:
 tex1.undraw()
 barrinha.undraw()
 circlin.undraw()
-text_Botao.undraw()
+text_botao.undraw()
 
 # ---------------tela_nome---------------------------------
 
@@ -107,9 +107,9 @@ botao = Rectangle(Point(350, 325), Point(450, 375))
 botao.setFill('light gray')
 botao.draw(win)
 
-textBotao = Text(Point(401, 352), 'PLAY !')
-textBotao.setStyle('bold')
-textBotao.draw(win)
+tex_botao = Text(Point(401, 352), 'PLAY !')
+tex_botao.setStyle('bold')
+tex_botao.draw(win)
 
 while True:
     ponto = win.getMouse()
@@ -125,7 +125,7 @@ print(nome.getText())
 NAME = nome.getText()
 
 nome.undraw()
-textBotao.undraw()
+tex_botao.undraw()
 botao.undraw()
 t1.undraw()
 l1.undraw()
@@ -140,15 +140,15 @@ name.draw(win)
 # --------------------início do game--------------------------------------------
 
 # Design
-linhaSuperior = Line(Point(0, 40), Point(800, 40))
-linhaSuperior.setWidth(10)
-linhaSuperior.setFill(color_rgb(0, 0, 0))
-linhaSuperior.draw(win)
+linha_superior = Line(Point(0, 40), Point(800, 40))
+linha_superior.setWidth(10)
+linha_superior.setFill(color_rgb(0, 0, 0))
+linha_superior.draw(win)
 # Design
-linhaInferior = Line(Point(0, 550), Point(800, 550))
-linhaInferior.setWidth(3)
-linhaInferior.setFill(color_rgb(0, 0, 0))
-linhaInferior.draw(win)
+linha_inferior = Line(Point(0, 550), Point(800, 550))
+linha_inferior.setWidth(3)
+linha_inferior.setFill(color_rgb(0, 0, 0))
+linha_inferior.draw(win)
 
 # Ball Design
 col = 390
@@ -166,9 +166,9 @@ pontos.setSize(18)
 pontos.draw(win)
 
 # Design da barra (antes do primeiro input)
-colIni = 340
+col_ini = 340
 tamanho = 100
-barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
+barra = Line(Point(col_ini, 530), Point(col_ini + tamanho, 530))
 barra.setFill(color_rgb(50, 49, 45))
 barra.setWidth(10)
 barra.draw(win)
@@ -185,11 +185,11 @@ barramento = 7.5
 xbrick = 5
 ybrick = 60
 bricks = {}
-scopexTop_Left = []
-scopeyTop_Left = []
-scopexBottom_Right = []
-scopeyBottom_Right = []
-Clock = .035  # Tempo entre uma atualizacao e outra do jogo
+scopex_top_left = []
+scopey_top_left = []
+scopex_bottom_right = []
+scopey_bottom_right = []
+clock = .035  # Tempo entre uma atualizacao e outra do jogo
 velocidade = 5  # velocidade da bola
 start = True
 continuar = True
@@ -205,21 +205,21 @@ while continuar:
                 index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                 if restart:
                     bricks[index].undraw()
-                scopexTop_Left.clear()
-                scopeyTop_Left.clear()
-                scopexBottom_Right.clear()
-                scopeyBottom_Right.clear()
+                scopex_top_left.clear()
+                scopey_top_left.clear()
+                scopex_bottom_right.clear()
+                scopey_bottom_right.clear()
         for o in range(0, 200, 30):
-            NoBlock = random.randrange(difficulty - 3, difficulty)
+            no_block = random.randrange(difficulty - 3, difficulty)
             for i in range(0, 800, 50):
-                if NoBlock >= (i / 50) or NoBlock >= 15 - (i / 50):
+                if no_block >= (i / 50) or no_block >= 15 - (i / 50):
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                     bricks[index] = Rectangle(Point(0, 0), Point(0, 0))
                     bricks[index].draw(win)
-                    scopexTop_Left.append(0)
-                    scopeyTop_Left.append(0)
-                    scopexBottom_Right.append(0)
-                    scopeyBottom_Right.append(0)
+                    scopex_top_left.append(0)
+                    scopey_top_left.append(0)
+                    scopex_bottom_right.append(0)
+                    scopey_bottom_right.append(0)
                     broken += 1
                 else:
                     index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
@@ -229,10 +229,10 @@ while continuar:
                     azul = random.randrange(0, 75)
                     bricks[index].setFill(color_rgb(vermelho, verde, azul))
                     bricks[index].draw(win)
-                    scopexTop_Left.append(xbrick + i)
-                    scopeyTop_Left.append(ybrick + o)
-                    scopexBottom_Right.append(xbrick + 50 + i)
-                    scopeyBottom_Right.append(ybrick + 30 + o)
+                    scopex_top_left.append(xbrick + i)
+                    scopey_top_left.append(ybrick + o)
+                    scopex_bottom_right.append(xbrick + 50 + i)
+                    scopey_bottom_right.append(ybrick + 30 + o)
         passada = random.randrange(1, 10)
 
         circulo.undraw()
@@ -244,9 +244,9 @@ while continuar:
         circulo.draw(win)
 
         barra.undraw()
-        colIni = 340
+        col_ini = 340
         tamanho = 100
-        barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
+        barra = Line(Point(col_ini, 530), Point(col_ini + tamanho, 530))
         barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
@@ -268,31 +268,31 @@ while continuar:
         start = False
 
     # Movimento da barra
-    if (colIni + 5) <= 701 and (colIni - 5) >= -1 and reseting == False:
-        colIni = colIni + barramento
+    if (col_ini + 5) <= 701 and (col_ini - 5) >= -1 and reseting == False:
+        col_ini = col_ini + barramento
         barra.undraw()
-        barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
+        barra = Line(Point(col_ini, 530), Point(col_ini + 100, 530))
         barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
-    elif (colIni + 5) >= 701 and reseting == False:
+    elif (col_ini + 5) >= 701 and reseting == False:
         barramento = -barramento
-        while (colIni + 5) >= 701:
-            colIni = colIni - 1
-    elif (colIni - 5) <= -1 and reseting == False:
+        while (col_ini + 5) >= 701:
+            col_ini = col_ini - 1
+    elif (col_ini - 5) <= -1 and reseting == False:
         barramento = -barramento
-        while (colIni - 5) <= -1:
-            colIni = colIni + 1
+        while (col_ini - 5) <= -1:
+            col_ini = col_ini + 1
 
     # Reconhece quando a Bola bate nos tijolinhos da pagina
     for q in range(1, 112):
-        if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyBottom_Right[q] + 5:
+        if col >= scopex_top_left[q] - 5 and col <= scopex_bottom_right[q] + 5 and lin == scopey_bottom_right[q] + 5:
             bricks[q.__str__()].undraw()
             pygame.mixer.Sound.play(blockbreak)
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -303,13 +303,13 @@ while continuar:
             pontos.draw(win)
             velocidade = -velocidade
 
-        if col >= scopexTop_Left[q] - 5 and col <= scopexBottom_Right[q] + 5 and lin == scopeyTop_Left[q] - 5:
+        if col >= scopex_top_left[q] - 5 and col <= scopex_bottom_right[q] + 5 and lin == scopey_top_left[q] - 5:
             bricks[q.__str__()].undraw()
             pygame.mixer.Sound.play(blockbreak)
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -320,13 +320,13 @@ while continuar:
             pontos.draw(win)
             velocidade = -velocidade
 
-        if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexBottom_Right[q] + 5:
+        if lin >= scopey_top_left[q] - 5 and lin <= scopey_bottom_right[q] + 5 and col == scopex_bottom_right[q] + 5:
             bricks[q.__str__()].undraw()
             pygame.mixer.Sound.play(blockbreak)
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -337,13 +337,13 @@ while continuar:
             pontos.draw(win)
             passada = -passada
 
-        if lin >= scopeyTop_Left[q] - 5 and lin <= scopeyBottom_Right[q] + 5 and col == scopexTop_Left[q] - 5:
+        if lin >= scopey_top_left[q] - 5 and lin <= scopey_bottom_right[q] + 5 and col == scopex_top_left[q] - 5:
             bricks[q.__str__()].undraw()
             pygame.mixer.Sound.play(blockbreak)
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -354,12 +354,12 @@ while continuar:
             pontos.draw(win)
             passada = -passada
             
-        if lin == scopeyTop_Left[q] and col == scopexTop_Left[q] - 5:
+        if lin == scopey_top_left[q] and col == scopex_top_left[q] - 5:
             bricks[q.__str__()].undraw()
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -371,12 +371,12 @@ while continuar:
             passada = -passada
             velocidade = -velocidade
 
-        if lin == scopeyBottom_Right[q] + 5 and col == scopexBottom_Right[q] + 5:
+        if lin == scopey_bottom_right[q] + 5 and col == scopex_bottom_right[q] + 5:
             bricks[q.__str__()].undraw()
-            scopeyTop_Left[q] = 0
-            scopexTop_Left[q] = 0
-            scopeyBottom_Right[q] = 0
-            scopexBottom_Right[q] = 0
+            scopey_top_left[q] = 0
+            scopex_top_left[q] = 0
+            scopey_bottom_right[q] = 0
+            scopex_bottom_right[q] = 0
             broken += 1
             # Atualiza os pontos a cada toque da bola na barra,
             pontos.undraw()
@@ -410,7 +410,7 @@ while continuar:
         velocidade = -velocidade
 
     # Reconhece quando a Bola bate na barra (Player)
-    if lin >= 515 and col > colIni and col < (colIni + tamanho) and lin <= 519:
+    if lin >= 515 and col > col_ini and col < (col_ini + tamanho) and lin <= 519:
         velocidade = -velocidade
         pygame.mixer.Sound.play(hit)
 
@@ -418,8 +418,8 @@ while continuar:
     if lin > 550:
         pygame.mixer.Sound.play(go)
         reseting = True
-        linhaSuperior.undraw()
-        linhaInferior.undraw()
+        linha_superior.undraw()
+        linha_inferior.undraw()
         circulo.undraw()
         pontos.undraw()
         barra.undraw()
@@ -481,8 +481,8 @@ while continuar:
         pont4.draw(win)
         lin = 300
 
-        linhaSuperior.undraw()
-        linhaInferior.undraw()
+        linha_superior.undraw()
+        linha_inferior.undraw()
         circulo.undraw()
         pontos.undraw()
         barra.undraw()
@@ -493,10 +493,10 @@ while continuar:
             for i in range(0, 800, 50):
                 index = ((o / 30 * 16).__int__() + (i / 50).__int__()).__str__()
                 bricks[index].undraw()
-                scopexTop_Left.clear()
-                scopeyTop_Left.clear()
-                scopexBottom_Right.clear()
-                scopeyBottom_Right.clear()
+                scopex_top_left.clear()
+                scopey_top_left.clear()
+                scopex_bottom_right.clear()
+                scopey_bottom_right.clear()
         name.undraw()
         quadrado.undraw()
         t.undraw()
@@ -540,9 +540,9 @@ while continuar:
         botao.setFill('light gray')
         botao.draw(win)
 
-        textBotao = Text(Point(401, 352), 'PLAY !')
-        textBotao.setStyle('bold')
-        textBotao.draw(win)
+        tex_botao = Text(Point(401, 352), 'PLAY !')
+        tex_botao.setStyle('bold')
+        tex_botao.draw(win)
 
         while True:
             ponto = win.getMouse()
@@ -557,7 +557,7 @@ while continuar:
         NAME = nome.getText()
 
         nome.undraw()
-        textBotao.undraw()
+        tex_botao.undraw()
         botao.undraw()
         t1.undraw()
         l1.undraw()
@@ -572,15 +572,15 @@ while continuar:
         # -----------------------------------------------------------------
 
         # Design
-        linhaSuperior = Line(Point(0, 40), Point(800, 40))
-        linhaSuperior.setWidth(10)
-        linhaSuperior.setFill(color_rgb(0, 0, 0))
-        linhaSuperior.draw(win)
+        linha_superior = Line(Point(0, 40), Point(800, 40))
+        linha_superior.setWidth(10)
+        linha_superior.setFill(color_rgb(0, 0, 0))
+        linha_superior.draw(win)
         # Design
-        linhaInferior = Line(Point(0, 550), Point(800, 550))
-        linhaInferior.setWidth(3)
-        linhaInferior.setFill(color_rgb(0, 0, 0))
-        linhaInferior.draw(win)
+        linha_inferior = Line(Point(0, 550), Point(800, 550))
+        linha_inferior.setWidth(3)
+        linha_inferior.setFill(color_rgb(0, 0, 0))
+        linha_inferior.draw(win)
 
         # Ball Design
         col = 390
@@ -597,9 +597,9 @@ while continuar:
         pontos.draw(win)
 
         # Design da barra (antes do primeiro input)
-        colIni = 340
+        col_ini = 340
         tamanho = 100
-        barra = Line(Point(colIni, 530), Point(colIni + tamanho, 530))
+        barra = Line(Point(col_ini, 530), Point(col_ini + tamanho, 530))
         barra.setFill(color_rgb(50, 49, 45))
         barra.setWidth(10)
         barra.draw(win)
@@ -614,11 +614,11 @@ while continuar:
         xbrick = 5
         ybrick = 60
         bricks = {}
-        scopexTop_Left = []
-        scopeyTop_Left = []
-        scopexBottom_Right = []
-        scopeyBottom_Right = []
-        Clock = .035  # Tempo entre uma atualizacao e outra do jogo
+        scopex_top_left = []
+        scopey_top_left = []
+        scopex_bottom_right = []
+        scopey_bottom_right = []
+        clock = .035  # Tempo entre uma atualizacao e outra do jogo
         velocidade = 5  # velocidade da bola
         start = True
         continuar = True
@@ -649,4 +649,4 @@ while continuar:
         barramento = -barramento
 
     # Esse valor faz referência ao game-tick, ou seja, de quanto em quanto tempo o jogo atualiza
-    time.sleep(Clock)
+    time.sleep(clock)
